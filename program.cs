@@ -92,36 +92,93 @@ namespace GhostBehindTheDoor
         public static void Ghost_Game()
         {
             Random random = new Random();
+            ConsoleKeyInfo keyInfo;
             while (Globals.GameOver == false)
             {
+                title();
+                logo();
+                doors();
                 Console.SetCursorPosition(Globals.pos_doors_x, Globals.pos_doors_y + 15);
                 Console.WriteLine(@"Punkte: {0}
 
 Hinter einer Tür verbirgt sich der Geist. Welche Tür wählst du? 1, 2 oder 3?", Globals.counter);
-
-                var option = Console.ReadLine();
-                int GhostDoor = random.Next(1, 4);
                 Console.SetCursorPosition(Globals.pos_doors_x, Globals.pos_doors_y + 20);
-                if (option != "1" && option != "2" && option != "3")
+                int door = random.Next(1, 4);
+                
+                keyInfo = Console.ReadKey(true);
+                switch (keyInfo.Key)
                 {
-                    Console.WriteLine("{0} ist keine gültige Option", option);
-                    System.Threading.Thread.Sleep(1500);
-                    Console.Clear();
-                    Main();
+                    case ConsoleKey.NumPad1:
+                        if (door == 1)
+                        {
+                            ghost(1);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Der Geist befand sich nicht hinter Tür 1");
+                        }
+                        break;
+                    case ConsoleKey.NumPad2:
+                        if (door == 2)
+                        {
+                            ghost(2);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Der Geist befand sich nicht hinter Tür 2");
+                        }
+                        break;
+                    case ConsoleKey.NumPad3:
+                        if (door == 3)
+                        {
+                            ghost(3);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Der Geist befand sich nicht hinter Tür 3");
+                        }
+                        break;
+                    case ConsoleKey.D1:
+                        if (door == 1)
+                        {
+                            ghost(1);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Der Geist befand sich nicht hinter Tür 1");
+                        }
+                        break;
+                    case ConsoleKey.D2:
+                        if (door == 2)
+                        {
+                            ghost(2);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Der Geist befand sich nicht hinter Tür 2");
+                        }
+                        break;
+                    case ConsoleKey.D3:
+                        if (door == 3)
+                        {
+                            ghost(3);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Der Geist befand sich nicht hinter Tür 3");
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("{0} ist keine gültige Option", keyInfo.Key);
+                        System.Threading.Thread.Sleep(1500);
+                        Console.Clear();
+                        Ghost_Game();
+                        break;
+                          
                 }
-                int door = Convert.ToInt32(option);
-                if (door == GhostDoor)
-                {
-                    ghost(GhostDoor);
-                }
-                else
-                    Console.WriteLine("Hinter Tür {0} befand sich kein Geist", door);
                 Globals.counter++;
                 System.Threading.Thread.Sleep(2000);
                 Console.Clear();
-                title();
-                logo();
-                doors();
             }
         }
         public static void ghost(int door)
